@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excel Column Cleaner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50 text-slate-800">
+    <main class="mx-auto w-full max-w-6xl px-4 py-8">
+      <section class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <h1 class="text-2xl font-bold">Excel Column Cleaner</h1>
+        <p class="mt-2 text-sm text-slate-600">
+          上传 Excel 文件，自动清洗列名并下载为 CSV。
+        </p>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div>
+            <label
+              for="fileInput"
+              class="mb-2 block text-sm font-medium text-slate-700"
+              >选择 Excel 文件（.xlsx / .xls）</label
+            >
+            <input
+              id="fileInput"
+              type="file"
+              accept=".xlsx,.xls"
+              class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm file:mr-4 file:cursor-pointer file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white hover:file:bg-blue-700"
+            />
+            <p class="mt-2 text-xs text-slate-500">文件大小限制：5MB</p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <p class="text-sm font-medium">列名清洗选项</p>
+            <div class="mt-2 space-y-2 text-sm">
+              <label class="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="namingStyle"
+                  value="default"
+                  checked
+                  class="h-4 w-4"
+                />
+                仅默认清洗（移除空白与特殊字符）
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="radio" name="namingStyle" value="camel" class="h-4 w-4" />
+                转为小驼峰（userName）
+              </label>
+              <label class="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="namingStyle"
+                  value="snake"
+                  class="h-4 w-4"
+                />
+                转为下划线（user_name）
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-4 flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800"
+        >
+          <span class="text-base leading-none" aria-hidden="true">⚠️</span>
+          <div class="space-y-3">
+            <p>
+              注意：清洗操作将直接修改数据。为确保安全，强烈建议您先备份原始文件。
+            </p>
+            <label class="flex items-center gap-2 font-medium">
+              <input
+                id="backupConfirm"
+                type="checkbox"
+                class="h-4 w-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500"
+              />
+              我已确认完成原始文件备份，允许下载清洗结果
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <button
+            id="cleanButton"
+            class="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+            disabled
+          >
+            开始清洗列名
+          </button>
+          <button
+            id="downloadButton"
+            class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+            disabled
+          >
+            下载 CSV
+          </button>
+          <span id="statusText" class="text-sm text-slate-600">等待上传文件</span>
+          <span id="loadingIndicator" class="hidden text-sm text-blue-600">处理中...</span>
+        </div>
+      </section>
+
+      <section class="mt-6 rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <h2 class="text-lg font-semibold">数据预览（前 5 行）</h2>
+        <div class="mt-4 overflow-x-auto">
+          <table id="previewTable" class="min-w-full border-collapse text-sm">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mx-auto w-full max-w-6xl px-4 pb-8">
+      <p class="rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm font-semibold text-emerald-700">
+        🔒 您的所有数据仅在浏览器中处理，不会上传到任何服务器，请放心使用。
+      </p>
+      <p class="mt-3 text-xs text-slate-600">
+        <a href="./privacy.html" class="hover:underline">隐私政策</a>
+        <span class="px-2">|</span>
+        <a href="./terms.html" class="hover:underline">服务条款</a>
+      </p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

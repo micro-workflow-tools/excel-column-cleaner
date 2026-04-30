@@ -1,0 +1,20 @@
+/* 额外样式保持轻量，主要样式由 Tailwind 提供 */
+body {
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#previewTable th,
+#previewTable td {
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 0.75rem;
+  vertical-align: top;
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#previewTable th {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
